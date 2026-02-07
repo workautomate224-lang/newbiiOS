@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "futureos-api"
+version = "0.1.0"
+description = "FutureOS API — Future Computation Engine Backend"
+authors = ["FutureOS Team"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.0"
+uvicorn = {extras = ["standard"], version = "^0.32.0"}
+pydantic = "^2.10.0"
+pydantic-settings = "^2.7.0"
+httpx = "^0.28.0"
+structlog = "^24.4.0"
+supabase = "^2.27.3"
+python-jose = {extras = ["cryptography"], version = "^3.5.0"}
+openai = "^2.17.0"
+redis = "^7.1.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.0"
+pytest-asyncio = "^0.24.0"
+pytest-cov = "^6.0.0"
+httpx = "^0.28.0"
+ruff = "^0.8.0"
+factory-boy = "^3.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+markers = [
+    "integration: marks tests that call real external APIs (deselect with '-m \"not integration\"')",
+    "real_e2e: marks tests that call real LLM APIs and cost money (deselect with '-m \"not real_e2e\"')",
+]

@@ -1,0 +1,18 @@
+{
+  "name": "futureos",
+  "version": "0.1.0",
+  "private": true,
+  "description": "FutureOS — Future Computation Engine",
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "lint": "pnpm --filter web lint",
+    "test": "pnpm --filter web test",
+    "test:api": "cd api && pytest -v --cov=app --cov-report=term-missing",
+    "typecheck": "pnpm --filter web tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20",
+    "pnpm": ">=9"
+  }
+}
