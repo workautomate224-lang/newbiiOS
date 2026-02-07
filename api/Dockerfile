@@ -2,12 +2,13 @@ FROM python:3.12-slim AS builder
 WORKDIR /app
 COPY pyproject.toml poetry.lock ./
 RUN pip install --no-cache-dir poetry && \
-    poetry export -f requirements.txt --without-hashes > requirements.txt
+    poetry config virtualenvs.in-project true && \
+    poetry install --only main --no-interaction --no-ansi
 
 FROM python:3.12-slim
 WORKDIR /app
-COPY --from=builder /app/requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY --from=builder /app/.venv ./.venv
 COPY . .
+ENV PATH="/app/.venv/bin:$PATH"
 EXPOSE 8000
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
